@@ -133,8 +133,9 @@ public class HashTable {
     
     /*find an element from the hashtable based on key*/ 
     public int get(String key) throws Exception{
-    	int hash = Hash(key, debug_flag) / SIZE;
+    	int hash = Hash(key, debug_flag) % SIZE;
     	if(hTable[hash].getKey() == null){
+    		System.err.println(hTable[hash].getKey());
     		throw new HashTableException("Does not exist");
     	} else if(hTable[hash].getKey() == key){
     		return hTable[hash].getValue();
@@ -153,16 +154,21 @@ public class HashTable {
     /*delete an element from the hashtable based on key*/
     public void out(String key) throws Exception{
     	int hash = Hash(key, debug_flag) % SIZE;
-    	if(hTable[hash].getKey() == null){
+		//(debug)System.out.println("Key is..." + hTable[hash].getKey() + "," + key);
+		//(debug)System.out.println("next" + hTable[hash].getNext());
+    	if(hTable[hash].getKey() == null) {
     		throw new HashTableException("Does not exist");
     	} else if(hTable[hash].getKey() == key){
     		if(hTable[hash].getNext() != null){
     			hTable[hash] = hTable[hash].getNext();
     		} else {
         		hTable[hash].setKey(null);
+        		count --;
     		}
     	} else {
+  
     		KVPair temp = hTable[hash];
+      		System.out.println("iin KVPair..." + temp);
     		while(temp.getNext() != null) {
         		KVPair pred = temp;
     			temp = temp.getNext();
@@ -189,12 +195,11 @@ public class HashTable {
     		Lib.assertTrue(table.get("bcd") == 32);
     		Lib.assertTrue(table.get("cde") == 34);
     		Lib.assertTrue(table.getCount() == 3);
-
     		table.out("bcd");
     		Lib.assertTrue(table.getCount() == 2);
-
+    		
     		//turn on debug flag, use the simpleHash which tends to clash easily
-    		HashTable table2 = new HashTable(true);
+    		HashTable table2 = new HashTable();
     		table2.put("abc", 30);
     		table2.put("bca", 32);
     		table2.put("cba", 34);
