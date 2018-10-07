@@ -4,7 +4,8 @@ import nachos.machine.Lib;
 
 /* This is a starting file to implement a concurrent hashtable (thread safe)
  * for CS 371, fall 2018.
- *
+ * 
+ * *
  * */
 
 /*Basic struct of key and value*/
