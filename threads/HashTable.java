@@ -161,15 +161,15 @@ public class HashTable {
     		throw new HashTableException("Does not exist");
     	} else if(hTable[hash].getKey() == key){
     		if(hTable[hash].getNext() != null){
-    			hTable[hash] = hTable[hash].getNext();
+    			hTable[hash] = hTable[hash].getNext();		
     		} else {
         		hTable[hash].setKey(null);
-        		count --;
     		}
+    		count--;
     	} else {
   
     		KVPair temp = hTable[hash];
-      		System.out.println("iin KVPair..." + temp);
+      		//System.out.println("in KVPair..." + temp);
     		while(temp.getNext() != null) {
         		KVPair pred = temp;
     			temp = temp.getNext();
@@ -179,9 +179,10 @@ public class HashTable {
     	    		} else {
     	    			pred.setNext(null);
     	    		}
+    				count--;
     			}
     		}
-    		throw new HashTableException("Not Found");
+    		//throw new HashTableException("Not Found");
     	} 
     }
     
@@ -196,11 +197,12 @@ public class HashTable {
     		Lib.assertTrue(table.get("bcd") == 32);
     		Lib.assertTrue(table.get("cde") == 34);
     		Lib.assertTrue(table.getCount() == 3);
-    		table.out("bcd");
+    		table.out("bcd");   		
     		Lib.assertTrue(table.getCount() == 2);
-    		
+    	   		
     		//turn on debug flag, use the simpleHash which tends to clash easily
-    		HashTable table2 = new HashTable();
+    		HashTable table2 = new HashTable(true);
+    		
     		table2.put("abc", 30);
     		table2.put("bca", 32);
     		table2.put("cba", 34);
