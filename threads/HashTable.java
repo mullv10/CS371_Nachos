@@ -154,6 +154,7 @@ public class HashTable {
     
     /*delete an element from the hashtable based on key*/
     public void out(String key) throws Exception{
+    	boolean found = false;
     	int hash = Hash(key, debug_flag) % SIZE;
 		//(debug)System.out.println("Key is..." + hTable[hash].getKey() + "," + key);
 		//(debug)System.out.println("next" + hTable[hash].getNext());
@@ -166,6 +167,7 @@ public class HashTable {
         		hTable[hash].setKey(null);
     		}
     		count--;
+    		found = true;
     	} else {
   
     		KVPair temp = hTable[hash];
@@ -180,10 +182,15 @@ public class HashTable {
     	    			pred.setNext(null);
     	    		}
     				count--;
+    				found = true;
     			}
     		}
     		//throw new HashTableException("Not Found");
     	} 
+    	if (found == false) { 
+    		throw new HashTableException("Not Found");
+    	
+    	}
     }
     
     public static void selfTest(){
